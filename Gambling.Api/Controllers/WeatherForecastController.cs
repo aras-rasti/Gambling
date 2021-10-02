@@ -4,13 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Gambling.Api.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Gambling.WebFramework.Api;
 
 namespace Gambling.Api.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class WeatherForecastController : ControllerBase
+
+    public class WeatherForecastController : BaseApiController
     {
         private static readonly string[] Summaries = new[]
         {
@@ -26,16 +27,24 @@ namespace Gambling.Api.Controllers
 
         [HttpGet]
         //[Authorize]
-        public IEnumerable<WeatherForecast> Get()
+        public ApiResult<IEnumerable<WeatherForecast>> Get()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return Ok(Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
-            .ToArray();
+            .ToArray());
+        }
+
+        [HttpPost("Gambling")]
+        public int GetGambling([FromBody]StakeViewModel input)
+        {
+            int i = 32;
+
+            return i/0;
         }
     }
 }
