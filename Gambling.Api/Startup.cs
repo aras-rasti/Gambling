@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Gambling.WebFramework.Configuration;
 using Gambling.WebFramework.Middlewares;
 
 namespace Gambling.Api
@@ -32,6 +33,7 @@ namespace Gambling.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Gambling.Api", Version = "v1" });
             });
+            services.AddCustomApplicationServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

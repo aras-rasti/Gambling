@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Gambling.Common\Gambling.Common.csproj" />
+    <ProjectReference Include="..\Gambling.Services\Gambling.Services.csproj" />
   </ItemGroup>
 
 </Project>

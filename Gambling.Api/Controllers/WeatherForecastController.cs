@@ -4,9 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Gambling.Api.ViewModel;
+using Gambling.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Gambling.WebFramework.Api;
+using Gambling.ViewModel.Stake;
 
 namespace Gambling.Api.Controllers
 {
@@ -19,6 +20,7 @@ namespace Gambling.Api.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
@@ -40,7 +42,7 @@ namespace Gambling.Api.Controllers
         }
 
         [HttpPost("Gambling")]
-        public int GetGambling([FromBody]StakeViewModel input)
+        public int GetGambling([FromBody] StakeViewModel input)
         {
             int i = 32;
 

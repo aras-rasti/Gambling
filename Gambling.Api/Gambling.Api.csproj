@@ -5,11 +5,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="UserStore.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Gambling.ViewModel\Gambling.ViewModel.csproj" />
     <ProjectReference Include="..\Gambling.WebFramework\Gambling.WebFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="UserStore.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -7,11 +7,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2A1EB5E2-196
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gambling.Api", "Gambling.Api\Gambling.Api.csproj", "{8515BA23-D59D-48B3-88EA-51186F23F958}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gambling.Common", "Gambling.Common\Gambling.Common.csproj", "{B4E07633-CEEE-46B2-B1C4-499569EFD4BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gambling.Common", "Gambling.Common\Gambling.Common.csproj", "{B4E07633-CEEE-46B2-B1C4-499569EFD4BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gambling.Services", "Gambling.Services\Gambling.Services.csproj", "{D228BE22-9196-4D22-BFE9-155D91720239}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gambling.Services", "Gambling.Services\Gambling.Services.csproj", "{D228BE22-9196-4D22-BFE9-155D91720239}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gambling.WebFramework", "Gambling.WebFramework\Gambling.WebFramework.csproj", "{C081F7DE-EF41-4200-B4B4-FCAEFE255D21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gambling.WebFramework", "Gambling.WebFramework\Gambling.WebFramework.csproj", "{C081F7DE-EF41-4200-B4B4-FCAEFE255D21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gambling.ViewModel", "Gambling.ViewModel\Gambling.ViewModel.csproj", "{33AB1E18-9EBD-494C-9BC8-08AE598758CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gambling.Data", "Gambling.Data\Gambling.Data.csproj", "{7528E2D9-2743-4EA3-B952-B389BE9343C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gambling.Entities", "Gambling.Entities\Gambling.Entities.csproj", "{316CE700-625D-432E-AB5B-B6CC0D8DD75B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +41,18 @@ Global
 		{C081F7DE-EF41-4200-B4B4-FCAEFE255D21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C081F7DE-EF41-4200-B4B4-FCAEFE255D21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C081F7DE-EF41-4200-B4B4-FCAEFE255D21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33AB1E18-9EBD-494C-9BC8-08AE598758CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33AB1E18-9EBD-494C-9BC8-08AE598758CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33AB1E18-9EBD-494C-9BC8-08AE598758CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33AB1E18-9EBD-494C-9BC8-08AE598758CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7528E2D9-2743-4EA3-B952-B389BE9343C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7528E2D9-2743-4EA3-B952-B389BE9343C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7528E2D9-2743-4EA3-B952-B389BE9343C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7528E2D9-2743-4EA3-B952-B389BE9343C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{316CE700-625D-432E-AB5B-B6CC0D8DD75B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{316CE700-625D-432E-AB5B-B6CC0D8DD75B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{316CE700-625D-432E-AB5B-B6CC0D8DD75B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{316CE700-625D-432E-AB5B-B6CC0D8DD75B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +62,9 @@ Global
 		{B4E07633-CEEE-46B2-B1C4-499569EFD4BE} = {2A1EB5E2-1969-421A-943B-B9B8503045EF}
 		{D228BE22-9196-4D22-BFE9-155D91720239} = {2A1EB5E2-1969-421A-943B-B9B8503045EF}
 		{C081F7DE-EF41-4200-B4B4-FCAEFE255D21} = {2A1EB5E2-1969-421A-943B-B9B8503045EF}
+		{33AB1E18-9EBD-494C-9BC8-08AE598758CE} = {2A1EB5E2-1969-421A-943B-B9B8503045EF}
+		{7528E2D9-2743-4EA3-B952-B389BE9343C2} = {2A1EB5E2-1969-421A-943B-B9B8503045EF}
+		{316CE700-625D-432E-AB5B-B6CC0D8DD75B} = {2A1EB5E2-1969-421A-943B-B9B8503045EF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6D6BC79-DD9A-4E23-B365-628D3EE6610D}

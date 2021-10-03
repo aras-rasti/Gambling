@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "userName": "aras",
+    "password": "123!@#qwe",
+    "firstName": "Aras",
+    "lastName": "Rasti",
+    "isActive": true,
+    "phoneNumber": "00989128438795"
+  }
+]
