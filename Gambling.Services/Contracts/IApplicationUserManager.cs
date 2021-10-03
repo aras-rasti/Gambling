@@ -9,6 +9,7 @@ namespace Gambling.Services.Contracts
 {
     public interface IApplicationUserManager
     {
-        Task<User> FindByNameAsync(string userName);
+        Task<User> FindByUserNameAsync(string userName);
+        Task<bool> CheckPasswordAsync(User user, string password);
     }
 }

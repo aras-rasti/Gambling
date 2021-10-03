@@ -9,6 +9,7 @@ namespace Gambling.Data.Contracts
 {
     public interface IUserRepository
     {
-        Task<User> GetByUserAndPass(string username);
+        Task<User> GetByUserName(string username);
+        Task<bool> VerifyPasswordAsync(User user, string password);
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Gambling.ViewModel.Stake
 {
-    public class StakeViewModel
+    public class StakePlayInputViewModel
     {
         [Required(ErrorMessage = "{0} is required!")]
         [Range(1, 10000, ErrorMessage = "Please enter {0} Between 1 and 10000 !")]

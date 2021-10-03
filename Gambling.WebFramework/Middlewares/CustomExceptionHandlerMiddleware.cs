@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Gambling.Common;
+using Gambling.Common.Exceptions;
 using Gambling.WebFramework.Api;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,6 +40,35 @@ namespace Gambling.WebFramework.Middlewares
             {
                 await _next(context);
             }
+            catch (AppException exception)
+            {
+                httpStatusCode = exception.HttpStatusCode;
+                apiResultStatus = exception.ApiStatusCode;
+
+                if (_evn.IsDevelopment())
+                {
+                    var dic = new Dictionary<string, string>
+                    {
+                        ["Exception"] = exception.Message,
+                        ["StackTrace"] = exception.StackTrace,
+                    };
+                    if (exception.InnerException != null)
+                    {
+                        dic.Add("InnerException.Exception", exception.InnerException.Message);
+                        dic.Add("InnerException.StackTrace", exception.InnerException.StackTrace);
+                    }
+                    if (exception.AdditionalData != null)
+                        dic.Add("AdditionalData", JsonConvert.SerializeObject(exception.AdditionalData));
+
+                    Message.Add(JsonConvert.SerializeObject(dic));
+                }
+                else
+                {
+                    Message.Add("An Error Occurred!");
+                }
+                await WriteToResponseAsync();
+
+            }
 
             catch (Exception exception)
             {
@@ -54,7 +84,7 @@ namespace Gambling.WebFramework.Middlewares
 
                 else
                 {
-                    Message.Add("An error has occurred.");
+                    Message.Add("An Error Occurred!");
                 }
 
                 await WriteToResponseAsync();

@@ -18,6 +18,7 @@ namespace Gambling.WebFramework.Configuration
             services.AddTransient<IJwtService, JwtService>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IApplicationUserManager, ApplicationUserManager>();
+            services.AddTransient<IStakeService, StakeService>();
         }
     }
 }

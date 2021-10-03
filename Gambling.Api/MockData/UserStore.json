@@ -7,5 +7,14 @@
     "lastName": "Rasti",
     "isActive": true,
     "phoneNumber": "00989128438795"
+  },
+  {
+    "id": 2,
+    "userName": "aras2",
+    "password": "123!@#qwe",
+    "firstName": "Aras",
+    "lastName": "Rasti",
+    "isActive": true,
+    "phoneNumber": "00989128438795"
   }
 ]

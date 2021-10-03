@@ -6,9 +6,9 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Gambling.Common;
+using Gambling.Entities.User;
 using Gambling.Services.Contracts;
 using Gambling.ViewModel.User;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -24,13 +24,11 @@ namespace Gambling.Services.Services
             _siteSettings = siteSettings.Value;
         }
 
-        public async Task<string> GenerateTokenAsync(UserViewModel user)
+        public async Task<string> GenerateTokenAsync(User user)
         {
             var secretKey = Encoding.UTF8.GetBytes(_siteSettings.JwtSettings.SecretKey);
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKey), SecurityAlgorithms.HmacSha256Signature);
 
-            var encrytionKey = Encoding.UTF8.GetBytes(_siteSettings.JwtSettings.EncryptKey);
-            var encryptingCredentials = new EncryptingCredentials(new SymmetricSecurityKey(encrytionKey), SecurityAlgorithms.Aes128KW, SecurityAlgorithms.Aes128CbcHmacSha256);
 
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
@@ -40,17 +38,17 @@ namespace Gambling.Services.Services
                 NotBefore = DateTime.Now.AddMinutes(_siteSettings.JwtSettings.NotBeforeMinutes),
                 Expires = DateTime.Now.AddMinutes(_siteSettings.JwtSettings.ExpirationMinutes),
                 SigningCredentials = signingCredentials,
-                Subject = new ClaimsIdentity(await GetClaimsAsync(user)),
-                EncryptingCredentials = encryptingCredentials,
+                Subject = new ClaimsIdentity(await GetClaimsAsync(user))
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+            var securityToken = tokenHandler.CreateJwtSecurityToken(tokenDescriptor);
             return tokenHandler.WriteToken(securityToken);
+
         }
 
 
-        public async Task<IEnumerable<Claim>> GetClaimsAsync(UserViewModel user)
+        public async Task<IEnumerable<Claim>> GetClaimsAsync(User user)
         {
             var Claims = new List<Claim>()
             {

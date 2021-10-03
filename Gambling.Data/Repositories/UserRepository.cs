@@ -4,32 +4,50 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Gambling.Data.Contracts;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Gambling.Data.Repositories
 {
     public class UserRepository: IUserRepository
     {
-        public async Task<User> GetByUserAndPass(string username)
+        private async Task<List<User>> GetUsersFromFile()
         {
-            var buildDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var dirPath = Assembly.GetExecutingAssembly().Location;
-            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"UserStore.json");
+            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"MockData/UserStore.json");
 
+            var openStream = await File.ReadAllTextAsync(path);
 
-            string fileName = path;
-            using FileStream openStream = File.OpenRead(fileName);
-            var users =
-                await JsonSerializer.DeserializeAsync<User>(openStream);
+            return JsonConvert.DeserializeObject<List<User>>(openStream);
+        }
 
-            return new User();
+        public async Task<User> GetByUserName(string username)
+        {
+            var users = await GetUsersFromFile();
+            return users.FirstOrDefault(u => u.UserName == username); ;
+        }
 
-
-
+        public async Task<bool> VerifyPasswordAsync(User user, string password)
+        {
+            var users = await GetUsersFromFile();
+            if (users.Count>0)
+            {
+                var currentUser = users.FirstOrDefault(u => u.Password == password);
+                if (currentUser!=null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
