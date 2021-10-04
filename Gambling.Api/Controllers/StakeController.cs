@@ -23,7 +23,6 @@ namespace Gambling.Api.Controllers
         }
 
         /// <summary>
-        /// In this action handel the stake game,
         /// Game Instructions :
         /// 1- Game of chance in which a random number between 0 - 9 is to be generated.
         ///2- The player has a starting account of 10,000 points and can use any
