@@ -16,7 +16,6 @@ namespace Gambling.WebFramework.Configuration
         public static void AddCustomApplicationServices(this IServiceCollection services)
         {
             services.AddTransient<IJwtService, JwtService>();
-            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IApplicationUserManager, ApplicationUserManager>();
             services.AddTransient<IStakeService, StakeService>();
         }

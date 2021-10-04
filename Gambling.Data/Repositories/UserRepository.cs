@@ -12,8 +12,12 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Gambling.Data.Repositories
 {
-    public class UserRepository: IUserRepository
+    public class UserRepository: Repository<User,ApiContext>, IUserRepository
     {
+        public UserRepository(ApiContext databaseContext):base(databaseContext)
+        {
+            
+        }
         private async Task<List<User>> GetUsersFromFile()
         {
             string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"MockData/UserStore.json");
@@ -25,13 +29,14 @@ namespace Gambling.Data.Repositories
 
         public async Task<User> GetByUserName(string username)
         {
-            var users = await GetUsersFromFile();
-            return users.FirstOrDefault(u => u.UserName == username); ;
+
+            var users =  DatabaseContext.Users.Local.FirstOrDefault(u => u.UserName == username);
+            return users;
         }
 
         public async Task<bool> VerifyPasswordAsync(User user, string password)
         {
-            var users = await GetUsersFromFile();
+            var users = DatabaseContext.Users.Local.ToList();
             if (users.Count>0)
             {
                 var currentUser = users.FirstOrDefault(u => u.Password == password);

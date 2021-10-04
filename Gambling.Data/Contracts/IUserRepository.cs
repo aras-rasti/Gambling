@@ -7,7 +7,7 @@ using Gambling.Entities.User;
 
 namespace Gambling.Data.Contracts
 {
-    public interface IUserRepository
+    public interface IUserRepository: IRepository<User>
     {
         Task<User> GetByUserName(string username);
         Task<bool> VerifyPasswordAsync(User user, string password);

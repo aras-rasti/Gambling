@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Gambling.Api.Controllers
 {
+    /// <summary>
+    /// This Controller use for manage users,for example : SignIn and get Jwt Token
+    /// </summary>
     public class UserController : BaseApiController
     {
         private readonly IApplicationUserManager _userManager;
@@ -20,6 +23,12 @@ namespace Gambling.Api.Controllers
             _userManager = userManager;
             _jwtService = jwtService;
         }
+
+        /// <summary>
+        /// This action use for SignIn user and return Jwt if user is valid.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost("SignIn")]
         [AllowAnonymous]
         public async Task<ApiResult<string>> SignIn(SignInInputViewModel input)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Gambling.Data;
 using Gambling.Data.Contracts;
 using Gambling.Entities.User;
 using Gambling.Services.Contracts;
@@ -12,17 +13,20 @@ namespace Gambling.Services.Services
 {
     public class ApplicationUserManager:IApplicationUserManager
     {
-        private readonly IUserRepository _user;
+        private readonly ApiContext _ctx;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ApplicationUserManager(IUserRepository user)
+
+        public ApplicationUserManager(IUnitOfWork unitOfWork,ApiContext ctx)
         {
-            _user = user;
+            _unitOfWork = unitOfWork;
+            _ctx = ctx;
         }
         public async Task<User> FindByUserNameAsync(string userName)
         {
             //You should use database to restore user ,but because of project scale I avoid this work.
-
-            return await _user.GetByUserName(userName);
+            var us = _ctx.Users.Local.FirstOrDefault(u => u.UserName == userName);
+            return await _unitOfWork.UserRepository.GetByUserName(userName);
         }
 
         public async Task<bool> CheckPasswordAsync(User user, string password)
@@ -33,7 +37,7 @@ namespace Gambling.Services.Services
             }
             else
             {
-                return await _user.VerifyPasswordAsync(user, password);
+                return await _unitOfWork.UserRepository.VerifyPasswordAsync(user, password);
             }
         }
     }

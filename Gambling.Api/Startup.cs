@@ -11,9 +11,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Gambling.Common;
+using Gambling.Data;
+using Gambling.Data.Contracts;
+using Gambling.Data.Tools;
+using Gambling.Data.Tools.Enums;
+using Gambling.Entities.User;
 using Gambling.WebFramework.Configuration;
 using Gambling.WebFramework.Configuration.DI;
 using Gambling.WebFramework.Middlewares;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gambling.Api
 {
@@ -32,6 +38,26 @@ namespace Gambling.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<SiteSettings>(Configuration.GetSection(nameof(SiteSettings)));
+
+
+            services.AddDbContext<ApiContext>(options =>
+            {
+                options.UseInMemoryDatabase("StakeDb");
+            });
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>(sp =>
+            {
+                Options options =
+                    new Options
+                    {
+                        Provider =
+                            (Provider)
+                            System.Convert.ToInt32(Configuration.GetSection(key: "databaseProvider").Value),
+                    };
+
+                return new UnitOfWork(options: options);
+            });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -44,6 +70,8 @@ namespace Gambling.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+   
+
             app.UseCustomExceptionHandler();
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gambling.Api v1"));
@@ -56,6 +84,23 @@ namespace Gambling.Api
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private static void AddMockData(ApiContext context)
+        {
+            var testUser1 = new User()
+            {
+                Id = "1",
+                UserName = "aras",
+                Password = "123!@#qwe",
+                FirstName = "Aras",
+                LastName = "Rasti",
+                IsActive = true,
+                PhoneNumber = "00989128438795"
+            };
+
+            context.Users.Add(testUser1);
+            context.SaveChanges();
         }
     }
 }
