@@ -30,7 +30,9 @@ namespace Gambling.Api.Controllers
         /// Bet the partial amount on the randomly generated number.
         ///3- If he is correct, he gets 9 times his stake as a profit.
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="input">Point should be between 1 and 10000 and
+        ///Number should be between 0 and 9
+        /// </param>
         /// <returns></returns>
         [HttpPost("StakePlay")]
         [Authorize]

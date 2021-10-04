@@ -8,7 +8,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Gambling.Common;
 using Gambling.Data;
@@ -61,7 +63,22 @@ namespace Gambling.Api
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Gambling.Api", Version = "v1" });
+                c.SwaggerDoc("v1", 
+                    new OpenApiInfo
+                    {
+                        Title = "Gambling Api", 
+                        Version = "v1",
+                        Description = "Through this api you can access Gambling Game",
+                        Contact = new OpenApiContact()
+                        {
+                            Name = "Aras Rasti",
+                            Email = "aras.rasti@gmail.com",
+                            Url =new Uri("https://github.com/aras-rasti/Gambling")
+                        }
+                    });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
             services.AddCustomApplicationServices();
             services.AddCustomAuthentication(_siteSettings);
@@ -74,7 +91,7 @@ namespace Gambling.Api
 
             app.UseCustomExceptionHandler();
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gambling.Api v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gambling Api v1"));
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
@@ -84,23 +101,6 @@ namespace Gambling.Api
             {
                 endpoints.MapControllers();
             });
-        }
-
-        private static void AddMockData(ApiContext context)
-        {
-            var testUser1 = new User()
-            {
-                Id = "1",
-                UserName = "aras",
-                Password = "123!@#qwe",
-                FirstName = "Aras",
-                LastName = "Rasti",
-                IsActive = true,
-                PhoneNumber = "00989128438795"
-            };
-
-            context.Users.Add(testUser1);
-            context.SaveChanges();
         }
     }
 }
